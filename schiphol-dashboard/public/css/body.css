@@ -50,12 +50,12 @@ a {
 } */
 
 ::selection {
-    background-color: var(--geel);
-    color: var(--licht-blauw);
+    background-color: var(--black);
+    color: var(--white);
 }
 
 input::selection {
-    background: var(--grijs);
+    background: var(--black);
 }
 
 /* pallet  */
@@ -65,7 +65,7 @@ input::selection {
     --cozyBackground: #252525;
     --textSecondary: #fffcdc;
     --white: #fff;
-    --purp: #51518e;
+    --purp: #5e17eb;
     --div: #222222;
     --black: #252525;
     --off-white: #EEF2FF;

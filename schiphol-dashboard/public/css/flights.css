@@ -1,0 +1,180 @@
+/* Flights Section */
+.flights-container {
+    max-width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    .flights-wrap {
+        padding: 20px;
+        width: 50%;
+        margin: 0 auto;
+        height: 800px;
+        overflow-y: auto;
+
+        /* Header with title and date */
+        .flights-search {
+            h1 {
+                background-color: var(--yellow);
+                border-radius: 10px;
+                padding: 5px;
+                font-size: 28px;
+                color: var(--dark-blue);
+                margin-bottom: 10px;
+
+                span {
+                    color: var(--purp);
+                }
+            }
+
+            p {
+                font-size: 16px;
+                color: var(--dark-gray);
+                margin-bottom: 20px;
+            }
+
+            /* Search Form */
+            .filter-form {
+                display: flex;
+                margin-bottom: 30px;
+
+
+                input {
+                    outline: none;
+                    flex: 1;
+                    padding: 10px;
+                    font-size: 16px;
+                    border: 1px solid var(--gray);
+                    border-top-left-radius: 5px;
+                    border-bottom-left-radius: 5px;
+                    /* margin-right: 10px; */
+                }
+
+                button {
+                    background-color: var(--light-blue);
+                    color: var(--white);
+                    border: none;
+                    padding: 10px 15px;
+                    font-size: 18px;
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--navy-blue);
+                    }
+                }
+            }
+        }
+
+        /* Flights List */
+        .flights-list {
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+
+                .flight-item {
+                    display: flex;
+                    justify-content: space-around;
+                    padding: 15px;
+                    border-bottom: 1px solid var(--gray);
+                    align-items: center;
+
+                    .flight-time,
+                    .flight-date {
+                        font-size: 16px;
+                        color: var(--dark-blue);
+                    }
+
+                    .flight-details {
+                        flex: 1;
+                        margin-left: 20px;
+
+                        span {
+                            display: block;
+                            font-size: 14px;
+                            color: var(--dark-gray);
+                        }
+
+                        .location {
+                            font-weight: bold;
+                            color: var(--light-blue);
+                        }
+
+                        .flight-numbers {
+                            margin-top: 5px;
+                            font-style: italic;
+                        }
+
+                        .flight-departure-date,
+                        .airline {
+                            margin-top: 10px;
+                            font-weight: bold;
+                        }
+                    }
+
+                    .flight-status {
+                        .status-text {
+                            padding: 5px 10px;
+                            border-radius: 5px;
+                            font-weight: bold;
+                        }
+
+                        .scheduled {
+                            background-color: var(--success);
+                            color: var(--white);
+                        }
+
+                        .delayed {
+                            background-color: var(--yellow);
+                            color: var(--black);
+                        }
+
+                        .canceled {
+                            background-color: var(--error);
+                            color: var(--white);
+                        }
+
+                        .details-link {
+                            font-size: 14px;
+                            color: var(--light-blue);
+                            text-decoration: none;
+                            margin-left: 10px;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+
+                    a {
+                        button {
+                            background-color: var(--light-blue);
+                            color: var(--white);
+                            padding: 8px 15px;
+                            font-size: 14px;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+
+                            &:hover {
+                                background-color: var(--navy-blue);
+                            }
+                        }
+                    }
+                }
+
+                .no-flights {
+                    padding: 15px;
+                    text-align: center;
+                    color: var(--dark-gray);
+                    font-style: italic;
+                }
+            }
+        }
+    }
+}

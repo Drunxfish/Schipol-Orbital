@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->time('arrival_time');
             $table->string('aircraft_type');
             $table->string('airline');
-            $table->enum('flight_status', ['Scheduled', 'Delayed', 'Cancelled', 'Departed', 'Arrived'])->default('Scheduled');
+            $table->enum('status', ['Scheduled', 'Delayed', 'Cancelled', 'Departed', 'Arrived'])->default('Scheduled');
             $table->string('check_in_location')->nullable();
             $table->decimal('ticket_price', 10, 2)->nullable();
             $table->enum('ticket_status', ['Available', 'Sold Out', 'Cancelled'])->default('Available');
