@@ -46,7 +46,7 @@
                             </div>
                         </li>
                     @empty
-                        <li class="no-flights">No departures found for '{{ $_GET['destination'] }}'</li>
+                        <li class="no-flights">No departures found for '{{ $_GET['destination'] ?? ''}}'</li>
                     @endforelse
                 </ul>
             </div>
