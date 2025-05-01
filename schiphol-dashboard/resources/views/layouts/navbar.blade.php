@@ -7,7 +7,7 @@
 
 <body>
     <header>
-        <img src="{{ asset('assets/images/test.png') }}" alt="" class="logo">
+        <img src="{{ asset('assets/images/test.png') }}" alt="logo" class="logo">
         <nav>
             <ul>
                 <li><a href="{{ route('index') }}">Home</a></li>

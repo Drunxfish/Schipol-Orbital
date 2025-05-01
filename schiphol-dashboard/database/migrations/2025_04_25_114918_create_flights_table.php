@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->string('check_in_location')->nullable();
             $table->decimal('ticket_price', 10, 2)->nullable();
             $table->enum('ticket_status', ['Available', 'Sold Out', 'Cancelled'])->default('Available');
+            $table->string('duration')->nullable();
 
             // Additional Details
             $table->text('services')->nullable();

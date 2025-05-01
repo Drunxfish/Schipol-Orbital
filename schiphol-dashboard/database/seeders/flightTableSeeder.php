@@ -65,6 +65,7 @@ class FlightTableSeeder extends Seeder
                 'services' => json_encode($servicesOptions[array_rand($servicesOptions)]),
                 'origin' => $isOriginSchiphol ? 'Schiphol Orbital' : $otherAirports[array_rand($otherAirports)],
                 'destination' => $isOriginSchiphol ? $otherAirports[array_rand($otherAirports)] : 'Schiphol Orbital',
+                'duration' => rand(1,12),
                 'seats_total' => $totalSeats,
                 'seats_booked' => rand(0, $totalSeats - 10),
                 'flight_coordinator_id' => rand(1, 7),

@@ -30,6 +30,14 @@ class FlightController extends Controller
         return view('flights.departure', compact('flights'));
     }
 
+    // Shows Departure details for a specific flight
+    public function departureDetails($flightId)
+    {
+        $flight = Flight::findOrFail($flightId);
+        return view('flights.departure-details', compact('flight'));
+    }
+
+    
     // This method is for showing flights arriving at Schiphol Orbital
     public function arrival(Request $request)
     {
@@ -43,6 +51,13 @@ class FlightController extends Controller
         $flights = $query->orderBy('arrival_time')->get();
 
         return view('flights.arrival', compact('flights'));
+    }
+
+    // Shows Arrival details for a specific flight
+    public function arrivalDetails($flightId)
+    {
+        $flight = Flight::findOrFail($flightId);
+        return view('flights.arrival-details', compact('flight'));
     }
 
 
@@ -62,13 +77,6 @@ class FlightController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

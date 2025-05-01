@@ -34,7 +34,7 @@
                                 class="flight-date">{{ \Carbon\Carbon::parse($flight->departure_date)->format('d M') }}</span>
                             <div class="flight-details">
                                 <span>{{ \Carbon\Carbon::parse($flight->departure_time)->format('h:i A') }}</span>
-                                <span class="location">{{ $flight->destination }} - {{ $flight->destination_code }}</span>
+                                <span class="location">{{ $flight->destination }}</span>
                                 <span class="flight-numbers">Flight number: {{ $flight->flight_number }} <br></span>
                                 <span class="airline">{{ $flight->airline }}</span>
                             </div>
@@ -42,7 +42,7 @@
                                 <span
                                     class="status-text {{ strtolower($flight->status) }}">{{ strtolower($flight->status) }}</span>
                                 {{-- {{ route('flights.details', ['flight' => $flight->id]) }} --}}
-                                <a href="" class="details-link">Details</a>
+                                <a href="/flights/departure/{{ $flight->id }}" class="details-link">Details</a>
                             </div>
                         </li>
                     @empty
