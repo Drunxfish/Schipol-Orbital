@@ -30,9 +30,9 @@
             <p>Flight Duration: {{ $flight->duration }} Hours </p>
         </div>
 
+        <!-- To be implemented ! -->
         <div class="bookingsType">
-            <a href=""><button>Book Economy Class</button></a>
-            <a href=""><button>Book Business Class</button></a>
+            <a href=""><button>Book Now</button></a>
         </div>
     </div>
 

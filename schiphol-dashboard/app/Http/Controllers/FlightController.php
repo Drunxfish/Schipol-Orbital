@@ -20,9 +20,11 @@ class FlightController extends Controller
     {
         $query = Flight::where('origin', '=', 'Schiphol Orbital');
 
-        if ($request->filled('destination')) {
-            $destination = $request->input('destination');
-            $query->where('destination', 'like', "%{$destination}%");
+        foreach (['destination' => 'destination', 'date' => 'departure_date'] as $input => $column) {
+            if ($request->filled($input)) {
+                $value = $request->input($input);
+                $query->where($column, 'like', "%{$value}%");
+            }
         }
 
         $flights = $query->orderBy('departure_date', 'asc')->orderBy('departure_time', 'asc')->get();
@@ -37,16 +39,19 @@ class FlightController extends Controller
         return view('flights.departure-details', compact('flight'));
     }
 
-    
+
     // This method is for showing flights arriving at Schiphol Orbital
     public function arrival(Request $request)
     {
         $query = Flight::where('origin', '!=', 'Schiphol Orbital');
 
-        if ($request->filled('origin')) {
-            $origin = $request->input('origin');
-            $query->where('origin', 'like', "%{$origin}%");
+        foreach (['origin' => 'origin', 'date' => 'arrival_date'] as $input => $inpVal) {
+            if ($request->filled($input)) {
+                $value = $request->input($input);
+                $query->where($inpVal, 'like', "%{$value}%");
+            }
         }
+
 
         $flights = $query->orderBy('arrival_time')->get();
 

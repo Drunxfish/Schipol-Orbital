@@ -1,18 +1,18 @@
 /* Flights Section */
 .flights-container {
     max-width: 100%;
-    height: 100vh;
+    height: fit-content;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
+    /* background-color: #fff; */
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
 
     .flights-wrap {
         padding: 20px;
         width: 50%;
         margin: 0 auto;
-        height: 800px;
+        height: 700px;
         overflow-y: auto;
 
         /* Header with title and date */

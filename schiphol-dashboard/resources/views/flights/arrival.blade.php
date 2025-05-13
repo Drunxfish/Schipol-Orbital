@@ -18,6 +18,7 @@
                 <p>Today, {{ now()->format('d F') }}</p>
                 <form method="GET" action="{{ route('flights.arrival') }}" class="filter-form">
                     <input type="text" name="origin" placeholder="Origin" value="{{ request('origin') }}">
+                    <input type="date" name="date" value="{{ request('date') }}">
                     <button type="submit">
                         <span class="material-symbols-rounded">
                             search

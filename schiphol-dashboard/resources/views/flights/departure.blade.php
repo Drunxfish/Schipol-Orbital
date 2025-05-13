@@ -19,12 +19,14 @@
                 <form method="GET" action="{{ route('flights.departure') }}" class="filter-form">
                     <input type="text" name="destination" placeholder="Destination"
                         value="{{ request('destination') }}">
+                    <input type="date" name="date" value="{{ request('date') }}">
                     <button type="submit">
                         <span class="material-symbols-rounded">
                             search
                         </span>
                     </button>
                 </form>
+
             </div>
             <div class="flights-list">
                 <ul>
