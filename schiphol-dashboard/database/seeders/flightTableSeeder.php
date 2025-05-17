@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Models\Flight;
@@ -77,6 +78,7 @@ class FlightTableSeeder extends Seeder
                 'status' => 'Scheduled',
                 'check_in_location' => $checkInLocations[array_rand($checkInLocations)],
                 'ticket_price' => rand(120, 500) + rand(0, 99) / 100,
+                'business_ticket_price' => rand(400, 1200) + rand(0, 99) / 100,
                 'ticket_status' => 'Available',
                 'services' => json_encode($servicesOptions[array_rand($servicesOptions)]),
                 'origin' => $isOriginSchiphol ? 'Schiphol Orbital' : $otherAirports[array_rand($otherAirports)],

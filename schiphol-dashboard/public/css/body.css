@@ -33,22 +33,6 @@ a {
     user-select: none;
 }
 
-/* ----- SCROLLBAR styling ------ */
-/* ::-webkit-scrollbar {
-    width: 9px;
-    opacity: 0.1;
-}
-
-::-webkit-scrollbar-thumb {
-    height: 33vh;
-    background-color: #686868;
-    border-radius: 20vh;
-}
-
-::-webkit-scrollbar-track {
-    background-color: rgb(216, 230, 238);
-} */
-
 ::selection {
     background-color: var(--black);
     color: var(--white);
@@ -66,9 +50,11 @@ input::selection {
     --textSecondary: #fffcdc;
     --white: #fff;
     --purp: #5e17eb;
+    --darkPurp: #5e17eb33;
     --div: #222222;
     --black: #252525;
     --off-white: #EEF2FF;
+    --of-white: #edf1f7;
     --dark-gray: #777676;
     --gray: #dadada;
     --lightest-blue: #d9e1fd;

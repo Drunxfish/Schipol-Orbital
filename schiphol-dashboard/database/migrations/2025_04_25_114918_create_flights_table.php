@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->enum('status', ['Scheduled', 'Delayed', 'Cancelled', 'Departed', 'Arrived'])->default('Scheduled');
             $table->string('check_in_location')->nullable();
             $table->decimal('ticket_price', 10, 2)->nullable();
+            $table->decimal('business_ticket_price', 10, 2)->nullable();
             $table->enum('ticket_status', ['Available', 'Sold Out', 'Cancelled'])->default('Available');
             $table->string('duration')->nullable();
 
