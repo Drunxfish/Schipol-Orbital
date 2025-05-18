@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Booking</title>
+    <title>{{ $flight->destination ?? 'Booking' }}</title>
     <link rel="stylesheet" href="{{ asset('css/body.css') }}">
 </head>
 
@@ -89,7 +89,8 @@
                                         <div class="col-md-6">
                                             <div class="bg-light rounded-3 p-3 h-100">
                                                 <h6 class="text-uppercase text-muted">Pricing</h6>
-                                                <div class="alert alert-info py-2 px-3 mb-3 small">
+                                                <div class="alert alert-info py-2 px-3 mb-3 small"
+                                                    style="background: var(--cozyBackground); color: var(--white); border: none;">
                                                     The prices listed below are final and will be applied at the time of
                                                     booking.
                                                     Tickets may also be purchased in person at our official ticket
@@ -147,7 +148,10 @@
                                         <h3 class="fw-bold text-primary mb-0 center">
                                             <i class="bi bi-person-circle me-2"></i>Traveler Information
                                         </h3>
-                                        <div class="alert alert-info mb-4 d-flex align-items-center" role="alert">
+                                        <div class="mb-3"></div>
+                                        <div class="alert alert-info mb-4 d-flex align-items-center p-3 w-auto"
+                                            role="alert"
+                                            style="background: var(--cozyBackground); color: var(--white); border: none; max-width: 600px;">
                                             <i class="bi bi-info-circle-fill me-2"></i>
                                             Please enter traveler details as shown on your passport or ID.
                                         </div>
@@ -171,7 +175,9 @@
                                                     <i class="bi bi-envelope"></i> Email
                                                 </label>
                                                 <input type="email" class="form-control" id="traveler_email"
-                                                    name="email" required placeholder="e.g your.email@email.com">
+                                                    name="email" value="{{ request('email') }}" required
+                                                    placeholder="e.g your.email@email.com" disabled>
+                                                <input type="hidden" name="email" value="{{ request('email') }}">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="traveler_phone" class="form-label">

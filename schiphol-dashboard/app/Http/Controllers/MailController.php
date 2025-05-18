@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Mail\BookingConfirmation;
+use App\Mail\BookingConfirmed;
 use App\Mail\MailTester;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -13,6 +15,7 @@ class MailController extends Controller
 {
     public function sendBookingConfirmation(Request $request)
     {
+        // Generate token (safety)
         $token = bin2hex(random_bytes(32));
         $flightId = $request->flight_id;
 
@@ -27,10 +30,8 @@ class MailController extends Controller
         $signedUrl = URL::temporarySignedRoute(
             'bookings.finalize',
             now()->addMinutes(30),
-            ['flight_id' => $flightId, 'token' => $token]
+            ['flight_id' => $flightId, 'token' => $token, 'email' => $request->email]
         );
-
-
 
         // Send email
         Mail::to($request->email)->send(new BookingConfirmation($signedUrl));

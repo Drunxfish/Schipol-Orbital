@@ -14,6 +14,8 @@ return new class extends Migration {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id()->unique();
             $table->string('tracker')->unique();
+            $table->string('confirmation_token')->unique();
+            $table->enum('status', ['completed', 'confirmed', 'canceled'])->default('confirmed');
             $table->foreignId('traveler_id')->constrained('travelers')->onDelete('cascade');
             $table->foreignId('flight_id')->constrained('flights')->onDelete('cascade');
             $table->enum('seat_class', ['economy', 'business', 'first']);

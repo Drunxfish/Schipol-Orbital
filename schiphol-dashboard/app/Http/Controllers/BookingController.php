@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\BookingCanceled;
+use App\Mail\BookingConfirmed;
 use Illuminate\Http\Request;
 use App\Models\Flight;
 use App\Models\Booking;
 use App\Models\Traveler;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class BookingController extends Controller
 {
@@ -24,7 +27,7 @@ class BookingController extends Controller
     {
         // Validate token
         if (!$request->query('token') || $request->query('token') !== session('booking_token') || session('booking_token_flight_id') != $request->flight_id) {
-            abort(403, 'Invalid or expired booking token.');
+            abort(403, 'Link expired');
         }
 
         // Validate input
@@ -42,6 +45,7 @@ class BookingController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput()->with('popup_message', 'Validation failed. Please check your input and try again.');
         }
+
         // Grab flight
         $flight = Flight::findOrFail($request->flight_id);
 
@@ -67,7 +71,8 @@ class BookingController extends Controller
 
                 // Create booking
                 $booking = Booking::create([
-                    'tracker'        => bin2hex(random_bytes(16)),
+                    'tracker' => bin2hex(random_bytes(32)),
+                    'confirmation_token' => bin2hex(random_bytes(32)),
                     'traveler_id'    => $traveler->id,
                     'flight_id'      => $flight->id,
                     'seat_class'     => $request->seat_class,
@@ -83,16 +88,91 @@ class BookingController extends Controller
 
             // Prevent form reuse
             session()->forget(['booking_token', 'booking_token_flight_id']);
-            return redirect()->route('bookings.display', ['tracker' => $tracker]);
+
+            # Booking created, sending email
+            $booking = Booking::with(['traveler', 'flight'])->where('tracker', $tracker)->firstOrFail();
+
+            // Generate a signed
+            $signedUrl = URL::temporarySignedRoute(
+                'bookings.display',
+                \Carbon\Carbon::parse($booking->flight->departure_date)->addDays(2),
+                ['tracker' => $booking->tracker, 'token' => $booking->confirmation_token]
+            );
+
+            // For the view access
+            session(['bookingComplete' => true]);
+
+            // Send the confirmation email
+            Mail::to($booking->traveler->email)->send(new BookingConfirmed($signedUrl, $booking));
+
+            return redirect()->route('bookings.confirmed');
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('popup_message', 'Booking failed. Please try again.');
+            return redirect()->back()->withInput()->with('popup_message', 'Booking failed. Please try again. <br> Error: ' . $e);
         }
     }
 
     // Display booking
-    public function show($tracker)
+    public function show(Request $request, $tracker)
     {
         $booking = Booking::with(['traveler', 'flight'])->where('tracker', $tracker)->firstOrFail();
+
+
+        if ($request->query('token') !== $booking->confirmation_token) {
+            abort(403, 'Link expired');
+        }
+
+        if (!$booking) {
+            abort(404); // Invalid token
+        }
+
         return view('bookings.display', compact('booking'));
+    }
+
+    // Cancel booking
+    public function cancel(Request $request, $tracker)
+    {
+        try {
+            // Get the booking data
+            $booking = Booking::with('traveler', 'flight')->where('tracker', $tracker)->firstOrFail();
+
+            // No access
+            if ($request->query('token') !== $booking->confirmation_token) {
+                abort(403, 'Invalid link.');
+            }
+
+            // Already canceled
+            if ($booking->status === 'canceled') {
+                return redirect()->route('bookings.display', ['tracker' => $tracker, 'token' => $booking->confirmation_token])
+                    ->with('popup_message', 'This booking has already been canceled.');
+            }
+
+            // Check if cancellation is allowed
+            if (!$booking->flight) {
+                return redirect()->route('bookings.display', ['tracker' => $tracker, 'token' => $booking->confirmation_token])
+                    ->with('popup_message', 'Flight information is missing.');
+            }
+
+            // Make sure they meet requirement
+            $departureDate = \Carbon\Carbon::parse($booking->flight->departure_date);
+            if (now()->diffInDays($departureDate, false) < 2) {
+                return redirect()->route('bookings.display', ['tracker' => $tracker, 'token' => $booking->confirmation_token])
+                    ->with('popup_message', 'Bookings can only be canceled at least 2 days before departure.');
+            }
+
+            // Update data
+            DB::transaction(function () use ($booking) {
+                $booking->status = 'canceled';
+                $booking->flight->decrement('seats_booked');
+                $booking->save();
+            });
+
+            // Feedback + Email
+            session(['booking_canceled' => true]);
+            Mail::to($booking->traveler->email)->send(new BookingCanceled($booking));
+            return redirect()->route('bookings.canceled');
+        } catch (\Exception $e) {
+            // Failed
+            return redirect()->back()->with('popup_message', 'Cancellation failed. Please try again later.');
+        }
     }
 }

@@ -14,7 +14,6 @@ clicking the button below.
 Confirm & Complete Your Booking
 @endcomponent
 
-
 **What happens next?**
 - You will be asked to fill in your name, email, address, and other required information.
 - Once you complete the form and confirm, we will finalize your reservation.

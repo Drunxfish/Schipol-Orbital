@@ -54,8 +54,7 @@
                                         {{ \Carbon\Carbon::parse($flight->arrival_time)->format('H:i') }}
                                     </p>
                                     <p class="mb-0"><strong>Gate:</strong> {{ $flight->gate->location ?? 'TBD' }}</p>
-                                    <p class="mb-0"><strong>Baggage Claim:</strong>
-                                        {{ $flight->baggage_claim ?? 'TBD' }}</p>
+                                    <p class="mb-0"><strong>Baggage Claim:</strong>TBD</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
