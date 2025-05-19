@@ -1,7 +1,3 @@
-@php
-    use Carbon\Carbon;
-@endphp
-
 @component('mail::message')
 
 # ❌ Booking Canceled
@@ -14,7 +10,7 @@ We regret to inform you that your booking with **Schiphol Orbital** has been can
 **💸 Refund Notice:**
 Your payment will be refunded to your original payment method within **14 working days**.
 If you do not receive your refund within this period, please contact our support team by replying to this email.
-@endcomponent
+@endcomponent2
 
 ---
 
@@ -26,6 +22,7 @@ If you do not receive your refund within this period, please contact our support
 - **Class:** {{ $booking->seat_class ?? 'N/A' }}
 - **Seat:** {{ isset($booking->flight->seats_total) ? 'B' . rand(1, $booking->flight->seats_total) : 'N/A' }}
 - **Status:** Canceled
+@endcomponent
 
 ---
 

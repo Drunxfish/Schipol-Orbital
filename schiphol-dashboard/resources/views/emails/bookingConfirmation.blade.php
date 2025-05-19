@@ -6,7 +6,7 @@
 
 Dear Traveler,
 
-Thank you for booking with the **Schiphol Orbital Airplane Program**!
+Thank you for booking with the **Schiphol Orbital**!
 To secure your seat on this extraordinary journey, please confirm your booking and provide your passenger details by
 clicking the button below.
 
@@ -24,5 +24,5 @@ If you have any questions, simply reply to this email.
 We look forward to welcoming you aboard!
 
 Best Travels,<br>
-The Schiphol Orbital Team
+**The Schiphol Orbital Team**
 @endcomponent
