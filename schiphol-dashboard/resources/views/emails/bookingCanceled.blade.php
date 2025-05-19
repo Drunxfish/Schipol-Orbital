@@ -10,7 +10,7 @@ We regret to inform you that your booking with **Schiphol Orbital** has been can
 **💸 Refund Notice:**
 Your payment will be refunded to your original payment method within **14 working days**.
 If you do not receive your refund within this period, please contact our support team by replying to this email.
-@endcomponent2
+@endcomponent
 
 ---
 
