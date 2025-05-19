@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->foreignId('flight_id')->constrained('flights')->onDelete('cascade');
             $table->enum('seat_class', ['economy', 'business', 'first']);
             $table->enum('seat_preference', ['any', 'window', 'aisle'])->nullable();
+            $table->string('seat')->nullable();
             $table->decimal('total_cost', 10, 2);
             $table->date('booking_date');
             $table->timestamps();

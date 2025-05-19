@@ -13,6 +13,7 @@ class Booking extends Model
         'flight_id',
         'seat_class',
         'seat_preference',
+        'seat',
         'total_cost',
         'booking_date',
         'status',

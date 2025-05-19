@@ -77,6 +77,7 @@ class BookingController extends Controller
                     'flight_id'      => $flight->id,
                     'seat_class'     => $request->seat_class,
                     'seat_preference' => $request->seat_preference,
+                    'seat' => ucfirst(chr(65 + intval($flight->seats_booked / 6))) . (($flight->seats_booked % 6) + 1),
                     'total_cost'     => $price,
                     'booking_date'   => NOW(),
                 ]);
@@ -107,7 +108,7 @@ class BookingController extends Controller
 
             return redirect()->route('bookings.confirmed');
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('popup_message', 'Booking failed. Please try again. <br> Error: ' . $e);
+            return redirect()->back()->withInput()->with('popup_message', 'Booking failed. Please try again');
         }
     }
 

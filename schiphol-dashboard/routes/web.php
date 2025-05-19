@@ -4,6 +4,9 @@ use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PdfController;
+use App\Http\Controllers\ReportController;
+
 
 # Display departure flight(s)
 Route::view('/', 'index')->name('index'); // Home page
@@ -49,3 +52,10 @@ Route::get('/bookings/canceled', function () {
     session()->forget('booking_canceled');
     return view('information.canceled');
 })->name('bookings.canceled'); # Booking canceled view
+
+
+
+# PDF 
+Route::get('/download-report/{tracker}/{token}', [PdfController::class, 'buildPDF'])
+    ->name('download.report')
+    ->middleware('signed');

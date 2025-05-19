@@ -9,6 +9,7 @@
         abort(404);
     }
 
+    // Deadline for cancelation 
     $cancelDeadline = Carbon::parse($booking->flight->departure_date)
         ->subDays(2)
         ->endOfDay();
@@ -63,10 +64,16 @@
                                 </span>
                             </div>
                         </div>
-                        <span class="fs-6 px-4 py-2 align-self-md-center rounded-pill"
-                            style="min-width: 130px; text-align: center; font-weight: 600; letter-spacing: 0.04em; background: var(--purp); color: var(--white);">
-                            {{ ucfirst($booking->flight->status) }}
-                        </span>
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="{{ URL::signedRoute('download.report', ['tracker' => $booking->tracker, 'token' => $booking->confirmation_token]) }}"
+                                class="btn btn-primary">
+                                Download PDF
+                            </a>
+                            <span class="fs-6 px-4 py-2 align-self-md-center rounded-pill"
+                                style="min-width: 130px; text-align: center; font-weight: 600; letter-spacing: 0.04em; background: var(--purp); color: var(--white);">
+                                {{ ucfirst($booking->flight->status) }}
+                            </span>
+                        </div>
                     </div>
                     <div class="card-body px-4 py-4"
                         style="background: var(--off-white); border-bottom-left-radius: 2rem; border-bottom-right-radius: 2rem;">
@@ -131,6 +138,9 @@
                                             <strong>Seat Class:</strong> {{ ucfirst($booking->seat_class) }}<br>
                                             <strong>Preference:</strong>
                                             {{ ucfirst($booking->seat_preference) ?? 'Any' }}
+                                            @if(!empty($booking->seat))
+                                                <br><strong>Seat:</strong> {{ $booking->seat }}
+                                            @endif
                                         </li>
                                         <li class="list-group-item bg-transparent border-0">
                                             <strong>Total Cost:</strong>
